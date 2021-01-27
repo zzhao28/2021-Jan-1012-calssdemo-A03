@@ -70,18 +70,22 @@ namespace nested_if_statement
             celsiusTemp = (fahrenheitTemp - 32) * 5 / 9;
             if (celsiusTemp < 0)
             {
+                //below 0
                 Console.WriteLine($"Your Temperature is {celsiusTemp} and it\'s freezing out!");
             }
-            else if (celsiusTemp < 15)
+            else if ((celsiusTemp >= 0) && (celsiusTemp <= 15))
             {
+                //0 (explict) to 15
                 Console.WriteLine($"Your Temperature is {celsiusTemp} and go wear a jacket!");
             }
-            else if (celsiusTemp < 30)
+            else if ((celsiusTemp >= 16) && (celsiusTemp <= 30))
             {
+                //16 (explicit) to 30
                 Console.WriteLine($"Your Temperature is {celsiusTemp} and it\'s a lovely day!");
             }
             else
             {
+                //over 30
                 Console.WriteLine($"Your Temperature is {celsiusTemp} and it\'s finally summer!");
             }
 
