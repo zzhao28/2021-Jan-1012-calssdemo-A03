@@ -23,7 +23,7 @@ namespace LoopProblems
             ////if the attempt is good then the value is placed in the out variable AND a ture is returned
             ////if the attempt fails then a False is returned and No convsersion is done
             ////
-            //if(int.TryParse(inputTemp, out mySquare))
+            //if (int.TryParse(inputTemp, out mySquare))
             //{
             //    if (mySquare > 0)
             //    {
@@ -42,7 +42,7 @@ namespace LoopProblems
             //        //pre-test solution
             //        int loopCount = 1;
             //        string msg = "";
-            //        while(loopCount <= mySquare)
+            //        while (loopCount <= mySquare)
             //        {
             //            msg = msg + $"{loopCount}x{loopCount}+";
             //            sumOfSquares += (int)Math.Pow(loopCount, 2);
@@ -70,29 +70,82 @@ namespace LoopProblems
             //5
             //4
             //3
-            Console.Write("Enter a number and display digits in reverse order:\t");
-            inputTemp = Console.ReadLine();
-            int aNumber;
-            if(int.TryParse(inputTemp, out aNumber))
-            {
-                int aNumberLength = inputTemp.Length;
+            //Console.Write("Enter a number and display digits in reverse order:\t");
+            //inputTemp = Console.ReadLine();
+            //int aNumber;
+            //if (int.TryParse(inputTemp, out aNumber))
+            //{
+            //    int aNumberLength = inputTemp.Length;
 
-                //use the for{...} loop syntax
-                //the for loop is a pre-test structure
-                //for(declare loopcounter; end condition; increment/decrement)
-                //{
-                //   coding block
-                //}
-                for (int loopCounter = aNumberLength - 1; loopCounter >= 0; loopCounter--)
+            //    //use the for{...} loop syntax
+            //    //the for loop is a pre-test structure
+            //    //for(declare loopcounter; end condition; increment/decrement)
+            //    //{
+            //    //   coding block
+            //    //}
+            //    for (int loopCounter = aNumberLength - 1; loopCounter >= 0; loopCounter--)
+            //    {
+            //        Console.WriteLine($"{inputTemp.Substring(loopCounter, 1)}");
+            //    }
+            //}
+            //else
+            //{
+            //    Console.WriteLine($"{inputTemp} is invalid. Enter a number.");
+            //}
+
+
+
+            //Input a list of positive numbers from the user and then calculate and display the
+            //  average age. Use the input of the number zero(i.e. 0) to stop prompting for numbers.
+
+            //int aNumber;
+            //int sumOfAges = 0;
+            //int loopCount = 0;
+            //int averageAge;
+            //do
+            //{
+            //    Console.Write("Enter the ages, enter '0' to stop recording:\t");
+            //    inputTemp = Console.ReadLine();
+            //    if (int.TryParse(inputTemp, out aNumber))
+            //    {
+            //        if (aNumber > 0)
+            //        {
+            //            sumOfAges += aNumber;
+            //            loopCount++;
+            //        }
+            //        else
+            //        {
+            //            Console.WriteLine($"{inputTemp} is invalid, please enter the positive number.");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"{inputTemp} is not valid number, please enter again.");
+            //    }
+            //} while (aNumber != 0);
+            //Console.WriteLine($"The average age is {Math.Round((decimal)sumOfAges /(decimal)loopCount, 2)}.");
+
+
+            //Write a program that will prompt the user for a string(could be anything), and then prompts the
+            //  user for a single character.The program should then display a count of the number of times the
+            //  character entered appears in the string.
+            string aString;
+            Console.Write("Enter anything you like, input 'x' to exit:\t");
+            inputTemp = Console.ReadLine();
+            if (inputTemp.ToLower() != "x")
+            {
+                int stringLength = inputTemp.Length;
+                for (int loopCount = 0; loopCount <= stringLength; loopCount++)
                 {
-                    Console.WriteLine($"{inputTemp.Substring(loopCounter, 1)}");
+                    Console.WriteLine($"{inputTemp.Substring(loopCount, 1)}");
+                    Console.WriteLine($"Count of the number of times: {loopCount}");
                 }
             }
             else
             {
-                Console.WriteLine($"{inputTemp} is invalid. Enter a number.");
+                Console.WriteLine($"Done.");
             }
-        
+
         }
     }
 }
