@@ -12,7 +12,7 @@ namespace ReadingWeekPractice
             //Using your knowledge of data types, modify the program you wrote for Question 1 so that it
             //  will round the mean average to two decimal places.
 
-            string inputTemp;
+            string inputTemp = "";
             //int aNumber;
             //int bNumber;
             //int cNumber;
@@ -656,85 +656,165 @@ namespace ReadingWeekPractice
             //  number of hours they have used. The program should then display the total amount
             //  billed.The program should allow for multiple bills to be processed(i.e.use a loop).
 
-            int usedHours = 1;
-            double userBill = 0.0;
+            //int usedHours = 1;
+            //double userBill = 0.0;
 
-            Console.WriteLine("User Billings Calculator\n\n");
-            Console.Write("Enter the customer Package: (A, B or C):\t");
-            inputTemp = Console.ReadLine();
-            switch (inputTemp)
+            //Console.WriteLine("User Billings Calculator\n\n");
+            //Console.Write("Enter the customer Package: (A, B or C):\t");
+            //inputTemp = Console.ReadLine();
+            //switch (inputTemp)
+            //{
+            //    case "a":
+            //    case "A":
+            //        while (usedHours != 0)
+            //        {
+            //            Console.Write("Enter the used hours (enter 0 to end calculation):\t");
+            //            inputTemp = Console.ReadLine();
+            //            if (int.TryParse(inputTemp, out usedHours) && usedHours >= 0)
+            //            {
+            //                if (usedHours > 10)
+            //                {
+            //                    userBill = 9.95 + ((usedHours - 10) * 2.0);
+            //                    Console.WriteLine("The monthly bill is {0:0.00}", userBill);
+            //                }
+            //                else
+            //                {
+            //                    Console.WriteLine($"The monthly bill is $9.95");
+            //                }
+            //            }
+            //            else
+            //            {
+            //                Console.WriteLine($"{inputTemp} is invalid number of hours.");
+            //            }
+            //        }
+            //        break;
+            //    case "b":
+            //    case "B":
+            //        while (usedHours != 0)
+            //        {
+            //            Console.Write("Enter the used hours (enter 0 to end calculation):\t");
+            //            inputTemp = Console.ReadLine();
+            //            if (int.TryParse(inputTemp, out usedHours) && usedHours >= 0)
+            //            {
+            //                if (usedHours > 20)
+            //                {
+            //                    userBill = 13.95 + ((usedHours - 20) * 1.0);
+            //                    Console.WriteLine("The monthly bill is {0:0.00}", userBill);
+            //                }
+            //                else
+            //                {
+            //                    Console.WriteLine($"The monthly bill is $9.95");
+            //                }
+            //            }
+            //            else
+            //            {
+            //                Console.WriteLine($"{inputTemp} is invalid number of hours.");
+            //            }
+            //        }
+            //        break;
+            //    case "c":
+            //    case "C":
+            //        while (usedHours != 0)
+            //        {
+            //            Console.Write("Enter the used hours (enter 0 to end calculation):\t");
+            //            inputTemp = Console.ReadLine();
+            //            if (int.TryParse(inputTemp, out usedHours) && usedHours >= 0)
+            //            {
+            //                Console.WriteLine($"The monthly bill is $9.95");
+            //            }
+            //            else
+            //            {
+            //                Console.WriteLine($"{inputTemp} is invalid number of hours.");
+            //            }
+            //        }
+            //        break;
+            //    default:
+            //        Console.WriteLine($"{inputTemp} is invalid package choice, please enter A, B or C.");
+            //        break;
+            //}
+
+
+            /*
+             * MoneyMaker
+             * this program will accept a principal investment amount, a monthly interest rate,
+             *    and a investment time in months
+             * the program will display a monthly investment report using the incoming data
+             * this program will continue until the user enters an x to exit
+            */
+            decimal principalInvestment = 0.0m;
+            decimal interestRate = 0.0m;
+            int investmentMonths = 0;
+            decimal returnsOfInvestment = 0.0m;
+
+            do
             {
-                case "a":
-                case "A":
-                    while (usedHours != 0)
-                    {
-                        Console.Write("Enter the used hours (enter 0 to end calculation):\t");
+                Console.WriteLine("\nWelcome to CSPC Investment Center\n");
+                Console.WriteLine("a. Investment");
+                Console.WriteLine("x. To exit\n\n");
+                Console.Write("Enter you choice:\t");
+                inputTemp = Console.ReadLine();
+                switch (inputTemp)
+                {
+                    case "a":
+                    case "A":
+                        Console.Write("\nEnter your principal investment amount:\t");
                         inputTemp = Console.ReadLine();
-                        if (int.TryParse(inputTemp, out usedHours) && usedHours >= 0)
+                        if (decimal.TryParse(inputTemp, out principalInvestment))
                         {
-                            if (usedHours > 10)
+                            Console.Write("\nEnter a monthly interest rate (1.3% -> 1.3):\t");
+                            inputTemp = Console.ReadLine();
+                            if (decimal.TryParse(inputTemp, out interestRate))
                             {
-                                userBill = 9.95 + ((usedHours - 10) * 2.0);
-                                Console.WriteLine("The monthly bill is {0:0.00}", userBill);
+                                interestRate /= 100.0m;
+                                Console.Write("\nEnter a investment time in months:\t");
+                                inputTemp = Console.ReadLine();
+                                if (int.TryParse(inputTemp, out investmentMonths))
+                                {
+                                    Console.WriteLine("{0,5} {1,20} {2,20} {3,20}", "Month", "Opening", "Interest Paid", "Investment Returns");
+                                    for (int i = 1; i <= investmentMonths; i++)
+                                    {
+
+                                        decimal interestPaid = interestRate * principalInvestment;
+                                        principalInvestment += interestPaid;
+                                        Console.WriteLine("{0,5} {1,20:c} {2,20:c} {3,20:c}\n", i, principalInvestment - interestPaid, interestPaid, principalInvestment);
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"{inputTemp} is invalid number of investment months.\n");
+                                }
                             }
                             else
                             {
-                                Console.WriteLine($"The monthly bill is $9.95");
+                                Console.WriteLine($"{inputTemp} is invalid number of interest rate.");
                             }
+                            Console.WriteLine($"Closing: {principalInvestment.ToString("c")}");
                         }
                         else
                         {
-                            Console.WriteLine($"{inputTemp} is invalid number of hours.");
+                            Console.WriteLine($"{inputTemp} is invalid number of investment amount.\n");
                         }
-                    }
-                    break;
-                case "b":
-                case "B":
-                    while (usedHours != 0)
-                    {
-                        Console.Write("Enter the used hours (enter 0 to end calculation):\t");
-                        inputTemp = Console.ReadLine();
-                        if (int.TryParse(inputTemp, out usedHours) && usedHours >= 0)
-                        {
-                            if (usedHours > 20)
-                            {
-                                userBill = 13.95 + ((usedHours - 20) * 1.0);
-                                Console.WriteLine("The monthly bill is {0:0.00}", userBill);
-                            }
-                            else
-                            {
-                                Console.WriteLine($"The monthly bill is $9.95");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine($"{inputTemp} is invalid number of hours.");
-                        }
-                    }
-                    break;
-                case "c":
-                case "C":
-                    while (usedHours != 0)
-                    {
-                        Console.Write("Enter the used hours (enter 0 to end calculation):\t");
-                        inputTemp = Console.ReadLine();
-                        if (int.TryParse(inputTemp, out usedHours) && usedHours >= 0)
-                        {
-                            Console.WriteLine($"The monthly bill is $9.95");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"{inputTemp} is invalid number of hours.");
-                        }
-                    }
-                    break;
-                default:
-                    Console.WriteLine($"{inputTemp} is invalid package choice, please enter A, B or C.");
-                    break;
+                        break;
+                    case "x":
+                    case "X":
+                        Console.WriteLine("Have a nice day, good-bye!\n");
+                        break;
+                    default:
+                        Console.WriteLine($"{inputTemp} is invalid menu choice.\n\n");
+                        break;
+                }
+
+            } while (inputTemp.ToLower() != "x");
+            string msg = "Good luck on your future investments!";
+            for (int i = 0; i < msg.Length; i++)
+            {
+                Console.Write("~");
             }
-
-
-
+            Console.WriteLine($"\n{msg}\n");
+            for (int i = 0; i < msg.Length; i++)
+            {
+                Console.Write("~");
+            }
         }
     }
 }
