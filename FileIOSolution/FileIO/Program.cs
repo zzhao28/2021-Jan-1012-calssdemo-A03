@@ -1,9 +1,13 @@
 ﻿using System;
+using System.IO; // clarifies the requirement for File I/O
+//using System.Threading.Tasks;
+using System.Windows.Win32;
 
 namespace FileIO
 {
     class Program
     {
+        [STAThread]
         //Main() is a method
         // special method
         // entry point into your program execution
@@ -28,6 +32,7 @@ namespace FileIO
              */
 
             string inputTemp;
+            string FullFilePathName;
 
             //post loop structure, used to control menu
             do
@@ -43,15 +48,25 @@ namespace FileIO
                 {
                     case "A":
                         {
-
+                            //Hard coded file-name
+                            //
+                            // the calling statement
+                            //
+                            // [receiving variable =] MethodName([List of argument]);
+                            //
+                            // on the calling statement your method's list of parameters
+                            //      are property referred to as "list of argument"
+                            FullFilePathName = HardCodedFileName();
                             break;
                         }
                     case "B":
                         {
+                            FullFilePathName = WindowEvironmentFileName();
                             break;
                         }
                     case "C":
                         {
+                            FullFilePathName = UploadFileName();
                             break;
                         }
                     case "X":
@@ -128,6 +143,34 @@ namespace FileIO
             //BECAUSE the method indicates a returned datatype of string (anything
             //      but void), the method REQUIRES a return xxxx; statement
             return Full_Path_FileName;
+        }
+
+        static string WindowEvironmentFileName()
+        {
+            //Using Environment.GetFolderPath allows the program to get to the
+            //  special folders of your Windows file system (Desktop, Documents, Download,..)
+            string myMachinePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //if you have a folder structure on your Desktop where the file is located
+            //   then add that path to the MachinePath
+            myMachinePath += @"\TempData\";
+            //Add the actual file name to the Full path
+            string Full_Path_FileName;
+            Full_Path_FileName = myMachinePath + @"OneColumn.txt";
+            return Full_Path_FileName;
+        }
+
+        static string UploadFileName()
+        {
+            // using the Windows system File Open dialog
+            //
+            // NOTE: you MUST as the following in front of your Main()
+            //    [STAThread]
+            //
+            // calling the File Open dialog
+            string Full_Path_Name;
+            OpenFileDialog fd = new OpenFileDialog();
+
+            return "";
         }
     }
 }
