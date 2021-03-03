@@ -145,7 +145,8 @@ namespace FileIO
             string Full_Path_FileName;
             //Full_Path_FileName = Folder_Pathname + @"OneColumn.txt";
             //Full_Path_FileName = Folder_Pathname + @"TwoColumn.txt";
-            Full_Path_FileName = Folder_Pathname + @"VariableColumns.txt";
+            //Full_Path_FileName = Folder_Pathname + @"VariableColumns.txt";
+            Full_Path_FileName = Folder_Pathname + @"NewFile.txt";
 
             //BECAUSE the method indicates a returned datatype of string (anything
             //      but void), the method REQUIRES a return xxxx; statement
