@@ -38,6 +38,11 @@ namespace FileIO
                             WriteToFile();
                             break;
                         }
+                    case "D":
+                        {
+                            SequenceSearch(Marks, logicalSize);
+                            break;
+                        }
                     case "X":
                         {
                             Console.WriteLine("Thank you. Have a nice day.");
@@ -125,6 +130,7 @@ namespace FileIO
             Console.WriteLine("a) Hard-coded file name.");
             Console.WriteLine("b) Display array.");
             Console.WriteLine("c) Writing to a file.");
+            Console.WriteLine("d) Search an array: Sequence Search.");
             Console.WriteLine("x) Exit.\n");
             Console.Write("Enter the menu option for File I/O\t");
             inputTempLocal = Console.ReadLine();
@@ -200,6 +206,64 @@ namespace FileIO
             //{
             //    Console.WriteLine($"Element has a value of {CurrentElement}");
             //}
+        }
+
+        static void SequenceSearch(int[] Marks, int logicalSize)
+        {
+            int searchValue = InputForInt();
+
+            //
+            //  Setup for search
+            //
+            bool foundFlag = false;
+            int foundIndex = 0;
+            //
+            //  Search
+            //  there are 2 conditions to stop the loop
+            //      a) examine all elements
+            //      b) did you find the element (if so stop)
+            //
+            //  for (int index = 0; index < logicalSize && !foundFlag; index++)     //start to end
+            for (int index = logicalSize - 1; index >= 0 && !foundFlag; index--)       //end to start
+
+            if(Marks[index] == searchValue)
+            {
+                foundFlag = true; //cause the loop to terminate
+                foundIndex = index; //record the element index where your item was found
+            }
+            //
+            //  Test search results
+            //
+            if (foundFlag)
+            {
+                Console.WriteLine($"You found your value ({searchValue}) in the array element" +
+                    $" located at index {foundIndex}. Array Element value is >{Marks[foundIndex]}<\n");
+            }
+            else
+            {
+                Console.WriteLine($"\nYou did not find your value ({searchValue}).");
+            }
+        }
+
+        static int InputForInt()
+        {
+            string inputTemp;
+            bool valid = false;
+            int value = 0;
+            do
+            {
+                Console.Write("Enter a whole number (ex 5)\t");
+                inputTemp = Console.ReadLine();
+                if (int.TryParse(inputTemp, out value))
+                {
+                    valid = true;
+                }
+                else
+                {
+                    Console.WriteLine($"Your value of >{inputTemp}< is invalid. Try again.");
+                }
+            } while (!valid);
+            return value;
         }
     }
 }
