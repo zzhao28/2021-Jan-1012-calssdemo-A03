@@ -48,6 +48,22 @@ namespace FileIO
                             BubbleSort(Marks, logicalSize);
                             break;
                         }
+                    case "F":
+                        {
+                            int foundIndex = -1;
+                            foundIndex = BinarySearch(Marks, logicalSize);
+                            if (foundIndex > -1)
+                            {
+                                Console.WriteLine($"The value you are searching for is located at" +
+                                    $" index {foundIndex} in the array. The search value was" +
+                                    $" {Marks[foundIndex]}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("The search value is not in the array");
+                            }
+                            break;
+                        }
                     case "X":
                         {
                             Console.WriteLine("Thank you. Have a nice day.");
@@ -137,6 +153,7 @@ namespace FileIO
             Console.WriteLine("c) Writing to a file.");
             Console.WriteLine("d) Search an array: Sequence Search.");
             Console.WriteLine("e) Sort an array: Bubble sort.");
+            Console.WriteLine("f) Search an array: Binary Search.");
             Console.WriteLine("x) Exit.\n");
             Console.Write("Enter the menu option for File I/O\t");
             inputTempLocal = Console.ReadLine();
@@ -302,6 +319,62 @@ namespace FileIO
                     }
                 }
             }
+        }
+
+        static int BinarySearch(int[] Marks, int logicalSize)
+        {
+            int searchArg = InputForInt();
+            int firstIndex = 0;
+            int lastIndex = logicalSize - 1;
+            int middleIndex = 0;
+            //the found index is also serving as the flag to indicate that the
+            //  search value has been found
+            //since array do NOT have indexes, if the foundIndex is
+            //  altered then the logical reason is the index point to a place int
+            //  your array where your search argument exists.
+            int foundIndex = -1;
+
+            //there will be an unknown number of times through the loop
+            //thus the best choice for looping will be the while loop
+            while(firstIndex <= lastIndex && foundIndex == -1)
+            {
+                //find the middle index
+                //this must be done using integer arithmetic
+                middleIndex = (firstIndex + lastIndex) / 2;
+                Console.WriteLine($"Pre-test: first {firstIndex} last {lastIndex} middle {middleIndex}");
+
+                //comparisons
+                if (searchArg > Marks[middleIndex])
+                {
+                    //everything in the SORTED array below the value at the middleIndex
+                    //  AND the middleIndex cannot logically be my search argument
+                    //therefore the NEW firstIndex is the element after the middle index element
+                    firstIndex = middleIndex + 1;
+                }
+                else
+                {
+                    if (searchArg < Marks[middleIndex])
+                    {
+                        //everything in the SORTED array below the value at the middleIndex
+                        //  AND the middleIndex cannot logically be my search argument
+                        //therefore the NEW firstIndex is the element before the middle index element
+                        lastIndex = middleIndex - 1;
+                    }
+                    else
+                    {
+                        //the current middleIndex element of the array is the element that
+                        //      your program is looking for
+                        //thus stop the search
+                        //stopping the search done by changing your foundIndex to a non negative
+                        //      value indicating the index location in the array
+                        foundIndex = middleIndex;
+                    }
+                }
+
+                Console.WriteLine($"Post-test: first {firstIndex} last {lastIndex} middle {middleIndex}");
+
+            }
+            return foundIndex;
         }
 
         static int InputForInt()
