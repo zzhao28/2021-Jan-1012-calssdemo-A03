@@ -43,6 +43,11 @@ namespace FileIO
                             SequenceSearch(Marks, logicalSize);
                             break;
                         }
+                    case "E":
+                        {
+                            BubbleSort(Marks, logicalSize);
+                            break;
+                        }
                     case "X":
                         {
                             Console.WriteLine("Thank you. Have a nice day.");
@@ -131,6 +136,7 @@ namespace FileIO
             Console.WriteLine("b) Display array.");
             Console.WriteLine("c) Writing to a file.");
             Console.WriteLine("d) Search an array: Sequence Search.");
+            Console.WriteLine("e) Sort an array: Bubble sort.");
             Console.WriteLine("x) Exit.\n");
             Console.Write("Enter the menu option for File I/O\t");
             inputTempLocal = Console.ReadLine();
@@ -242,6 +248,59 @@ namespace FileIO
             else
             {
                 Console.WriteLine($"\nYou did not find your value ({searchValue}).");
+            }
+        }
+
+        static void BubbleSort(int[] Marks, int logicalSize)
+        {
+            //temp swap area
+            int temp = 0;
+
+            //swap flag (was a swap done on this iteration of the outer loop
+            //if there was no swap done on an interation of the outer loop, it means
+            //    that all required swapping has been done AND the array is in order
+            //this optimizes the logic for sorting
+            bool swapped = true;
+
+            //loop to ensure every combination in the array is covered
+            //since we known the number of iteration required (logicalSize)
+            //      the best looping choice is for()
+            for(int allIndex = 0; allIndex < logicalSize - 1 && swapped; allIndex++)
+            {
+                //the actual comparison loop is the inner loop
+                //this loop needs to be done for each iteration of the outer
+                //  loop
+                //reset the swap flag for each array iteration
+                swapped = false;
+
+                //in a Bubble sort, one compares adjacent elements to determine
+                //  if the elements need to be switched
+                //to optimize the looping, on each execution of the outer loop
+                //      one can short the number of iterations on the inner loop
+                for (int swapIndex = 0; swapIndex < logicalSize - allIndex - 1; swapIndex++)
+                {
+                    //test to swap
+                    //ascending order: greater than
+                    //descending order: less than
+                    if (Marks[swapIndex] > Marks[swapIndex + 1])
+                    {
+                        //swap
+                        //extra code to see the swap
+                        //Console.WriteLine("Pre Swap");
+                        //DisplayArray(Marks, logicalSize);
+
+                        //swap
+                        //move one of the value out of the way (into the swap area)
+                        temp = Marks[swapIndex];
+                        Marks[swapIndex] = Marks[swapIndex + 1];
+                        Marks[swapIndex + 1] = temp;
+                        swapped = true;
+
+                        //extra code to see the swap
+                        //Console.WriteLine("Post Swap");
+                        //DisplayArray(Marks, logicalSize);
+                    }
+                }
             }
         }
 
