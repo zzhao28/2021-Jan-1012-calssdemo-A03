@@ -119,7 +119,7 @@ namespace IntroToObjects
             //  b) you could assign the value DIRECTLY to a private data member
             //      WARNING! if your property does any logic against the value
             //               to be assigned to the data member, this WILL NOT HAPPEN
-            _CashBills = 5.00;
+            //_CashBills = 5.00;
         }
 
         //"Greedy" constructor
