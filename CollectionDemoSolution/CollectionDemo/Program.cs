@@ -18,11 +18,69 @@ namespace CollectionDemo
             //  within the class: Wall, Opening, List<T>
 
             //create a collection of Walls for the room
-
             //when the List<T> is created, the instance will be empty (Count==0)
             List<Wall> Walls = new List<Wall>();
-            Walls = InputWallsForRoom();
             List<Opening> Openings = new List<Opening>();
+            WriteLine($"After Load: Number of walls {Walls.Count,5} Number of openings {Openings.Count,-5}");
+            //
+            //loading using a returned List<T>
+            Walls = InputWallsForRoom();
+            
+            //Loading using a List<T> as a method parameter argument
+            InputOpeningsForRoom(Openings);
+            WriteLine($"After Load: Number of walls {Walls.Count,5} Number of openings {Openings.Count,-5}");
+
+            //create and load a class called Room
+            //Room is a composite class
+            //a composite class is identified by using other classes within its definition
+            string name = GetNonEmptyString("Enter the name of the room:");
+            string color = GetNonEmptyString("Enter the paint color of the room:");
+            Room myRoom = null;
+            try
+            {
+                //third way of creating an loading an instance
+                //attach a coding block to your new statement
+                //it DOES NOT MATTER if your class has OR has not got
+                //      coded constructors to be able to use this technique
+                //NOTE: not well formed if you are trying to use a "greedy" constructor
+                myRoom = new Room()
+                {
+                    //syntax
+                    //  class propertyname = value
+                    Name = name,
+                    color = color,
+                    Walls = Walls,
+                    Openings = Openings
+                };
+
+                //find the next area surface of the room
+                //sum up all the room wall areas
+                //sum up all the opening areas
+                // surfaceArea = roomSurfaceArea - openingArea
+                double wallSurfaceArea = 0.00;
+                double openingArea = 0.0;
+                //by using the Property Walls in the class Room, we prove
+                //  that the List<T> (Walls) was truly loaded to the instance of Room
+                foreach(Wall item in myRoom.Walls)
+                {
+                    //item is an instance of the List<Walls> in the collection loaded
+                    //      to the Room instance myRoom
+                    wallSurfaceArea += item.WallArea();
+                }
+                foreach (Opening item in myRoom.Openings)
+                {
+                    //item is an instance of the List<Walls> in the collection loaded
+                    //      to the Room instance myRoom
+                    openingArea += item.OpeningArea();
+                }
+                WriteLine($"\n\nTotal wall area {wallSurfaceArea} Total opening area {openingArea} giving a net" +
+                    $" surface area to paint the color of {myRoom.color} of {wallSurfaceArea - openingArea} in the" +
+                    $" room {myRoom.Name}");
+            }
+            catch(Exception ex)
+            {
+                WriteLine($"\nError: {ex.Message}\n");
+            }
         }
 
 
@@ -93,11 +151,17 @@ namespace CollectionDemo
                 //to create a NEW UNIQUE instance of the class Wall, use the 
                 //  new operator and the class name.
                 //the new operator will use the Wall default constructor
+
+                //Step 1: create the instance
                 aWall = new Wall();
+
+                //Step 2: collect data and load the instance
                 //obtain the width for the wall
                 aWall.Width = GetPositiveDouble("Enter the width of your wall:");
                 //obtain the height for the wall
                 aWall.Height = GetPositiveDouble("Enter the height of your wall:");
+
+                //Step 3: save the instance
                 //add the instance to the wall collection
                 inputWalls.Add(aWall);
                 if (GetNonEmptyString("Do you have another wall, Y or N.").ToUpper().Equals("N"))
@@ -107,6 +171,38 @@ namespace CollectionDemo
             } while (!finished);
             //return the wall collection
             return inputWalls;
+        }
+
+        static void InputOpeningsForRoom(List<Opening> openings)
+        {
+            
+            Opening anOpening = null;
+            bool finished = false;
+            double width = 0.0;
+            double height = 0.0;
+            string description = null;
+            do
+            {
+                //loading using the "greedy" constructor
+                //need to have all value for the instance BEFORE creating the
+                //  actually instance (via new)
+                
+                //Step 1: collect data
+                width = GetPositiveDouble("Enter the width of your opening:");
+                height = GetPositiveDouble("Enter the height of your opening:");
+                description = GetNonEmptyString("Enter a description of the opening (such as window, door," +
+                    " fireplace, etc.)");
+
+                //Step 2: create and load new instance using greedy constructor
+                anOpening = new Opening(width, height, description);
+
+                //Step 3: save the instance
+                openings.Add(anOpening);
+                if (GetNonEmptyString("Do you have another wall, Y or N.").ToUpper().Equals("N"))
+                {
+                    finished = true;
+                }
+            } while (!finished);
         }
 
         static double GetPositiveDouble(string prompt)
